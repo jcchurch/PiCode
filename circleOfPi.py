@@ -65,5 +65,5 @@ for n in range(1, 100000):
 
     pi_text.set("pi = {:9f}  n = {:d}".format(in_circle * 4.0 / n, n))
     canvas.update()
-    time.sleep(0.001)
+    # time.sleep(0.001)
 
