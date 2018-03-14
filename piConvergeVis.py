@@ -32,7 +32,6 @@ As n approaches infinity, pi will equal 3.14159.
 
 import tkinter
 import random
-import time
 
 window = 500
 border = 50
@@ -50,7 +49,7 @@ pi_label = tkinter.Label(canvas, textvariable=pi_text)
 pi_label.place(x=border, y=window-border+10)
 
 in_circle = 0
-for n in range(1, 100000):
+for n in range(1, 1000000):
     x = random.random() * 2 - 1
     y = random.random() * 2 - 1
 
