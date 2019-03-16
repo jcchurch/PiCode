@@ -1,0 +1,72 @@
+int needles = 0;
+int crossings = 0;
+int needleLength = 50;
+int linegap = 64;
+int min = 0 + needleLength;
+int max = width - needleLength;
+
+void setup() {
+    size(640, 640);
+    //frameRate(5);
+    stroke(128, 0, 0);
+    for (int x = linegap; x < width; x += linegap) {
+        line(x, 0, x, width);
+    }
+    
+    min = 0 + needleLength;
+    max = width - needleLength;
+
+    drawRandomLine(min, max, needleLength);
+}
+
+int[] drawRandomLine(int min, int max, int needleLength) {
+    int Ax = int(random(min, max));
+    int Ay = int(random(min, max));
+    int Rx = int(random(min, max));
+    int Ry = int(random(min, max));
+
+    float Vx = Rx - Ax;
+    float Vy = Ry - Ay;
+        
+    float norm = sqrt(Vx*Vx + Vy*Vy);
+
+    Vx /= norm;
+    Vy /= norm;
+        
+    int Bx = Ax + int(Vx * needleLength);
+    int By = Ay + int(Vy * needleLength);
+        
+    stroke(255, 255, 0);
+    line(Ax, Ay, Bx, By);
+    
+    int[] xs = {min(Ax, Bx), max(Ax, Bx)};
+    
+    return xs;
+}
+
+boolean checkCrossings(int ax, int bx, int linegap) {
+   for (int x = linegap; x < width; x += linegap) {
+        if (ax <= x && x <= bx) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void draw() {
+    int[] xs = drawRandomLine(min, max, needleLength);
+    
+    if (checkCrossings(xs[0], xs[1], linegap)) {
+        crossings++;
+    }
+    needles++;
+    
+    float pi = (2 * needleLength * needles) / float(linegap * crossings);
+    
+    stroke(0, 0, 128);
+    fill(255, 255, 255);
+    rect(0, 0, 200, 30, 7);
+    textSize(16);
+    fill(0, 0, 128);
+    text(pi, 0, 20);
+}
